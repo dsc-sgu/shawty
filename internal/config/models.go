@@ -6,6 +6,7 @@ import (
 )
 
 type appConfig struct {
+	Domain       string       `yaml:"domain"`
 	SharedSecret string       `yaml:"shared_secret"`
 	Server       serverConfig `yaml:"server"`
 	Pg           pgConfig     `yaml:"postgres"`

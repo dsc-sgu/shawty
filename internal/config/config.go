@@ -10,7 +10,7 @@ import (
 var C appConfig
 
 // Loads config from a YAML file.
-func Load(configFile string) appConfig {
+func Load(configFile string) {
 	content, err := os.ReadFile(configFile)
 	if err != nil {
 		fmt.Printf(
@@ -31,5 +31,6 @@ func Load(configFile string) appConfig {
 		)
 		panic("failed to load the config")
 	}
-	return cfg
+
+	C = cfg
 }

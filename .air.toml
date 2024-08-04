@@ -1,13 +1,13 @@
 root = "."
 testdata_dir = "testdata"
-tmp_dir = "tmp"
+tmp_dir = "bin"
 
 [build]
 args_bin = []
 bin = "./bin/service"
 cmd = "mkdir -p ./bin && go build -v -o ./bin ./cmd/..."
 delay = 1000
-exclude_dir = ["tmp"]
+exclude_dir = ["bin"]
 exclude_file = []
 exclude_regex = ["_test.go"]
 exclude_unchanged = false

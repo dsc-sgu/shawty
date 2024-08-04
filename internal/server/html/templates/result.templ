@@ -1,0 +1,13 @@
+package templates
+
+templ Result(domain string, name string) {
+    <div>
+        <div class="result">
+            Your link
+            <span class="link">https://{ domain }/s/{ name }</span>
+        </div>
+        <button hx-get="/create" hx-target="main">
+            Create Another
+        </button>
+    </div>
+}

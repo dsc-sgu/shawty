@@ -47,6 +47,15 @@ func Contains[T comparable](ts []T, elem T) bool {
 	return false
 }
 
+func All(ts []bool) bool {
+	for _, t := range ts {
+		if !t {
+			return false
+		}
+	}
+	return true
+}
+
 func Any(ts []bool) bool {
 	for _, t := range ts {
 		if t {

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <title>AliveTech's Link Shortener</title>
+        <link rel="stylesheet" href="static/styles/atcc.css">
+
+        <!-- HTMX -->
+        <script
+            src="https://unpkg.com/htmx.org@2.0.1"
+            integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/"
+            crossorigin="anonymous"
+        ></script>
+
+        <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            document.body.addEventListener('htmx:beforeSwap', function(evt) {
+                if (evt.detail.xhr.status === 422 ||
+                    evt.detail.xhr.status === 409)
+                {
+                    evt.detail.shouldSwap = true;
+                    evt.detail.isError = false;
+                }
+            });
+        })
+        </script>
+    </head>
+    <body>
+        <main>
+            <button hx-get="/create" hx-target="this" hx-swap="outerHTML">
+                Let's Do It!
+            </button>
+        </main>
+    </body>
+</html>

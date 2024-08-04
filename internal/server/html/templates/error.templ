@@ -1,0 +1,15 @@
+package templates
+
+templ ErrorBox(msg string) {
+    <div class="error server">
+        <span class="message">
+            { msg }
+        </span>
+        <button
+            hx-get="/"
+            hx-target="body"
+        >
+            I want to go home!
+        </button>
+    </div>
+}

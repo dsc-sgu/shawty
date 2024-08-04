@@ -1,0 +1,31 @@
+package templates
+
+import "github.com/dsc-sgu/atcc/internal/server/dto"
+
+templ CreateForm(withSecret bool, data dto.CreateForm, err error) {
+    <form hx-post="/create" hx-swap="outerHTML">
+        if withSecret {
+            <div>
+                <label for="secret">Shared Secret</label>
+                <input type="password" id="secret" name="secret" value={ data.Secret } required>
+            </div>
+        }
+        <div>
+            <label for="name">Name (Optional)</label>
+            <input type="text" id="name" name="name" value={ data.Name }>
+        </div>
+        <div>
+            <label for="target">Target Link</label>
+            <input type="url" id="target" name="target" value={ data.Target } required>
+        </div>
+        <div>
+            <button type="submit">Shorten!</button>
+            <button hx-get="/" hx-target="body" hx-swap="outerHTML">
+                Nevermind...
+            </button>
+        </div>
+        if err != nil {
+            <span class="error">{ err.Error() }</span>
+        }
+    </form>
+}

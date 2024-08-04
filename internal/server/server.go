@@ -28,19 +28,20 @@ func Launch() {
 	)
 	defer cancel()
 
-	// new gin server engine
-	r := gin.New()
-	r.Use(
-		middleware.AccessLogMiddleware(),
-		middleware.AuthMiddleware([]string{
-			"^/ping$",
-		}),
-	)
+	// gin server engine
+	e := gin.New()
+	e.LoadHTMLFiles("./index.html")
 
-	r.GET("/ping", routes.GetPing)
+	e.Use(middleware.AccessLogMiddleware())
+
+	e.Static("/static", "./static")
+	e.GET("/", routes.GetIndex)
+	e.GET("/ping", routes.GetPing)
+	e.GET("/create", routes.GetCreate)
+	e.POST("/create", routes.PostCreate)
 
 	// disable trusted proxy warning
-	if err := r.SetTrustedProxies(nil); err != nil {
+	if err := e.SetTrustedProxies(nil); err != nil {
 		log.S.Fatalw(
 			"Failed to configure trusted proxies settings",
 			"error", err,
@@ -49,7 +50,7 @@ func Launch() {
 
 	// create a new server
 	srv := &http.Server{
-		Handler: r,
+		Handler: e,
 	}
 	// setting onShutdown logic
 	srv.RegisterOnShutdown(onShutdown)

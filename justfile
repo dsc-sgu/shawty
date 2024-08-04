@@ -5,3 +5,6 @@ format:
 
 lint:
     @golangci-lint run ./cmd/... ./internal/...
+
+gen-templates:
+    @templ generate
