@@ -1,0 +1,22 @@
+server:
+  mode: debug
+  host: 0.0.0.0
+  port: 80
+log:
+  level: debug
+  encoding: json
+  output_paths: ["stdout"]
+  error_output_paths: ["stderr"]
+  dev_mode: true
+  encoder_config:
+    message_key: message
+    level_key: level
+    level_encoder: lowercase
+    time_key: timestamp
+    time_encoder: iso8601
+postgres:
+  host: atcc-postgres
+  port: 5432
+  database: atcc_storage
+  username: postgres
+  password: postgres

@@ -1,0 +1,20 @@
+FROM golang:1.22 AS builder
+
+WORKDIR /app
+
+ENV CGO_ENABLED=0
+
+COPY go.mod go.sum ./
+RUN go mod download && go mod verify
+
+COPY cmd cmd
+COPY internal internal
+RUN mkdir ./bin && go build -v -o ./bin ./cmd/...
+
+FROM scratch AS final
+
+WORKDIR /app
+
+COPY --from=builder /app/bin/service .
+
+ENTRYPOINT ["/app/service"]
