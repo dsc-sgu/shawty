@@ -66,9 +66,9 @@ func Launch() {
 	defer listener.Close()
 
 	// perform startup logic
-	err = onStartup()
+	err = onStartup(ctx)
 	if err != nil {
-		log.S.Fatalf("Failed to start the service", "error", err)
+		log.S.Fatalw("Failed to start the service", "error", err)
 	}
 
 	// server runs in a goroutine
