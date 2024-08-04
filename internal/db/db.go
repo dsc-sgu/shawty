@@ -5,6 +5,7 @@ import (
 
 	"github.com/dsc-sgu/atcc/internal/config"
 	"github.com/jmoiron/sqlx"
+	_ "github.com/lib/pq"
 )
 
 var C *sqlx.DB

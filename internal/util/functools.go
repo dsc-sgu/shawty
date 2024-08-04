@@ -8,14 +8,6 @@ func Map[T, V comparable](ts []T, fn func(T) V) []V {
 	return result
 }
 
-func GetOrNil[T, V comparable](m map[T]V, key T) *V {
-	val, ok := m[key]
-	if ok {
-		return &val
-	}
-	return nil
-}
-
 func Keys[T, V comparable](m map[T]V) []T {
 	keys := make([]T, 0, len(m))
 	for k := range m {

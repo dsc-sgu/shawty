@@ -6,7 +6,7 @@ import (
 )
 
 func init() {
-	config.C = config.Load("/config/atcc.yaml")
+	config.C = config.Load("config/atcc.yaml")
 
 	log.Init()
 }
