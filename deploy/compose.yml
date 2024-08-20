@@ -1,5 +1,6 @@
+name: atcc
 services:
-  atcc-service:
+  web:
     container_name: atcc-service
     image: "atcc:latest"
     pull_policy: never
@@ -15,7 +16,7 @@ services:
       atcc-postgres:
         condition: service_healthy
 
-  atcc-postgres:
+  postgres:
     container_name: atcc-postgres
     image: "postgres:16"
     environment:
@@ -23,7 +24,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
-       - ./data/postgres:/data/postgres
+       - "./data/postgres:/data/postgres"
     ports:
       - "5432:5432"
     restart: unless-stopped
