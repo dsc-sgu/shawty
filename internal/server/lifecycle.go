@@ -3,8 +3,8 @@ package server
 import (
 	"context"
 
-	"github.com/dsc-sgu/atcc/internal/database"
-	"github.com/dsc-sgu/atcc/internal/log"
+	"github.com/dsc-sgu/shawty/internal/database"
+	"github.com/dsc-sgu/shawty/internal/log"
 )
 
 func onStartup(ctx context.Context) (err error) {

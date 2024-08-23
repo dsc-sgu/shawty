@@ -1,8 +1,8 @@
-name: atcc
+name: shawty
 services:
-  web:
-    container_name: atcc-service
-    image: "atcc:latest"
+  shawty:
+    container_name: ${COMPOSE_PROJECT_NAME}
+    image: "shawty:latest"
     pull_policy: never
     build:
       context: ..
@@ -13,14 +13,14 @@ services:
       - "../config:/app/config"
     restart: unless-stopped
     depends_on:
-      atcc-postgres:
+      postgres:
         condition: service_healthy
 
   postgres:
-    container_name: atcc-postgres
+    container_name: ${COMPOSE_PROJECT_NAME}-postgres
     image: "postgres:16"
     environment:
-      POSTGRES_DB: atcc_storage
+      POSTGRES_DB: shawty_storage
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:

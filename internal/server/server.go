@@ -9,10 +9,10 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/dsc-sgu/atcc/internal/config"
-	"github.com/dsc-sgu/atcc/internal/log"
-	"github.com/dsc-sgu/atcc/internal/server/middleware"
-	"github.com/dsc-sgu/atcc/internal/server/routes"
+	"github.com/dsc-sgu/shawty/internal/config"
+	"github.com/dsc-sgu/shawty/internal/log"
+	"github.com/dsc-sgu/shawty/internal/server/middleware"
+	"github.com/dsc-sgu/shawty/internal/server/routes"
 	"github.com/gin-gonic/gin"
 )
 
@@ -30,7 +30,6 @@ func Launch() {
 
 	// gin server engine
 	e := gin.New()
-	e.LoadHTMLFiles("./index.html")
 
 	e.Use(middleware.AccessLogMiddleware())
 
@@ -39,6 +38,7 @@ func Launch() {
 	e.GET("/ping", routes.GetPing)
 	e.GET("/create", routes.GetCreate)
 	e.POST("/create", routes.PostCreate)
+	e.GET("/s/:name", routes.GetS)
 
 	// disable trusted proxy warning
 	if err := e.SetTrustedProxies(nil); err != nil {

@@ -1,4 +1,5 @@
-domain: cc.alivetech.org
+ssl: false
+domain: "localhost:8010"
 server:
   mode: debug
   host: 0.0.0.0
@@ -18,6 +19,6 @@ log:
 postgres:
   host: localhost
   port: 5432
-  database: atcc_storage
+  database: shawty_storage
   username: postgres
   password: postgres

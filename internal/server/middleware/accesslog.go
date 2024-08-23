@@ -3,7 +3,7 @@ package middleware
 import (
 	"time"
 
-	"github.com/dsc-sgu/atcc/internal/log"
+	"github.com/dsc-sgu/shawty/internal/log"
 
 	"github.com/gin-gonic/gin"
 )

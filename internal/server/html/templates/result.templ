@@ -1,10 +1,14 @@
 package templates
 
-templ Result(domain string, name string) {
+templ Result(ssl bool, domain string, name string) {
     <div>
         <div class="result">
             Your link
-            <span class="link">https://{ domain }/s/{ name }</span>
+            if ssl {
+                <span class="link">https://{ domain }/s/{ name }</span>
+            } else {
+                <span class="link">http://{ domain }/s/{ name }</span>
+            }
         </div>
         <button hx-get="/create" hx-target="main">
             Create Another

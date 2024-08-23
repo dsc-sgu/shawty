@@ -1,61 +1,50 @@
 package routes
 
 import (
-	"fmt"
 	"net/http"
 
-	"github.com/dsc-sgu/atcc/internal/config"
-	"github.com/dsc-sgu/atcc/internal/database"
-	"github.com/dsc-sgu/atcc/internal/log"
-	"github.com/dsc-sgu/atcc/internal/random"
-	"github.com/dsc-sgu/atcc/internal/server/dto"
-	"github.com/dsc-sgu/atcc/internal/server/html/render"
-	"github.com/dsc-sgu/atcc/internal/server/html/templates"
+	"github.com/dsc-sgu/shawty/internal/config"
+	"github.com/dsc-sgu/shawty/internal/database"
+	"github.com/dsc-sgu/shawty/internal/random"
+	"github.com/dsc-sgu/shawty/internal/server/dto"
+	"github.com/dsc-sgu/shawty/internal/server/html/render"
+	"github.com/dsc-sgu/shawty/internal/server/html/templates"
+
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 func GetCreate(c *gin.Context) {
-	withSecret := len(config.C.SharedSecret) != 0
-	r := render.New(c, templates.CreateForm(withSecret, dto.CreateForm{}, nil))
+	form := dto.CreateForm{WithSecret: len(config.C.SharedSecret) != 0}
+	r := render.New(c, templates.CreateForm(form))
 	c.Render(http.StatusOK, r)
 }
 
 func PostCreate(c *gin.Context) {
-	withSecret := len(config.C.SharedSecret) != 0
-
-	var form dto.CreateForm
+	form := dto.CreateForm{
+		WithSecret: len(config.C.SharedSecret) != 0,
+	}
 	if err := c.ShouldBind(&form); err != nil {
-		r := render.New(c, templates.CreateForm(withSecret, form, err))
+		r := render.New(c, templates.CreateForm(form))
 		c.Render(http.StatusUnprocessableEntity, r)
 		return
 	}
 
-	log.S.Debugw("Request", "req", form)
-
-	if len(config.C.SharedSecret) != 0 && form.Secret != config.C.SharedSecret {
-		r := render.New(
-			c,
-			templates.CreateForm(
-				withSecret,
-				form,
-				fmt.Errorf("Provide a secret"),
-			),
-		)
-		c.Render(http.StatusUnprocessableEntity, r)
-		return
+	if len(config.C.SharedSecret) != 0 &&
+		form.Data.Secret != config.C.SharedSecret {
+		form.Errors.Secret = "provide a secret"
 	}
 
-	if len(form.Name) == 0 {
+	if len(form.Data.Name) == 0 {
 	loop:
 		for {
 			select {
 			case <-c.Done():
 				return
 			default:
-				form.Name = random.RandSeq(10)
-				if taken, err := database.C.IsNameTaken(c, form.Name); err != nil {
-					r := render.New(c, templates.ErrorBox("Oops, something is very wrong..."))
-					c.Render(http.StatusInternalServerError, r)
+				form.Data.Name = random.RandSeq(10)
+				if taken, err := database.C.IsNameTaken(c, form.Data.Name); err != nil {
+					internalError(c)
 					return
 				} else if !taken {
 					break loop
@@ -63,38 +52,40 @@ func PostCreate(c *gin.Context) {
 			}
 		}
 	} else {
-		if taken, err := database.C.IsNameTaken(c, form.Name); err != nil {
-			r := render.New(c, templates.ErrorBox("Oops, something is very wrong..."))
-			c.Render(http.StatusInternalServerError, r)
+		if taken, err := database.C.IsNameTaken(c, form.Data.Name); err != nil {
+			internalError(c)
 			return
 		} else if taken {
-			r := render.New(
-				c,
-				templates.CreateForm(
-					withSecret,
-					form,
-					fmt.Errorf("A link with this name already exists"),
-				),
-			)
-			c.Render(http.StatusConflict, r)
-			return
+			form.Errors.Name = "a link with this name already exists"
 		}
 	}
 
-	sl := database.ShortenedLink{
-		Name:        form.Name,
-		Target:      form.Target,
-		CreatedFrom: "web_ui",
-	}
-	if err := database.C.SaveLink(c, sl); err != nil {
-		r := render.New(
-			c,
-			templates.ErrorBox("Oops, something is very wrong..."),
-		)
-		c.Render(http.StatusInternalServerError, r)
+	if form.Errors.Any() {
+		r := render.New(c, templates.CreateForm(form))
+		c.Render(http.StatusOK, r)
 		return
 	}
 
-	r := render.New(c, templates.Result(config.C.Domain, form.Name))
+	id, err := uuid.NewV7()
+	if err != nil {
+		internalError(c)
+		return
+	}
+
+	sl := database.ShortenedLink{
+		Id:          id,
+		Name:        form.Data.Name,
+		Target:      form.Data.Target,
+		CreatedFrom: "web_ui",
+	}
+	if err := database.C.SaveLink(c, sl); err != nil {
+		internalError(c)
+		return
+	}
+
+	r := render.New(
+		c,
+		templates.Result(config.C.Ssl, config.C.Domain, form.Data.Name),
+	)
 	c.Render(http.StatusOK, r)
 }

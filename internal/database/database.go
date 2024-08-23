@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/dsc-sgu/atcc/internal/config"
-	"github.com/dsc-sgu/atcc/internal/log"
+	"github.com/dsc-sgu/shawty/internal/config"
+	"github.com/dsc-sgu/shawty/internal/log"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 )
@@ -72,6 +72,21 @@ func (c *connection) IsNameTaken(
 		return false, err
 	}
 	return count[0] != 0, nil
+}
+
+// Finds link by its name. The second return value is the indicator,
+// whether or not a link with this name exists in the database.
+func (c *connection) FindLinkByName(ctx context.Context, name string) (
+	ShortenedLink,
+	bool,
+	error,
+) {
+	var links []ShortenedLink
+	if err := c.db.SelectContext(ctx, &links, findByName, name); err != nil {
+		log.S.Errorw("Database query has failed", "error", err)
+		return ShortenedLink{}, false, err
+	}
+	return links[0], len(links) != 0, nil
 }
 
 func (c *connection) SaveLink(ctx context.Context, l ShortenedLink) error {

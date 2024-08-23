@@ -1,7 +1,7 @@
 package log
 
 import (
-	"github.com/dsc-sgu/atcc/internal/config"
+	"github.com/dsc-sgu/shawty/internal/config"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"

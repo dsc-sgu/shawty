@@ -8,3 +8,5 @@ lint:
 
 gen-templates:
     @templ generate
+
+pre-commit: gen-templates format lint
