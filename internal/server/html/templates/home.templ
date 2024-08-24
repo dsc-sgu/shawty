@@ -1,0 +1,12 @@
+package templates
+
+templ Home() {
+    <main>
+        <button hx-get="/create" hx-target="main" hx-swap="outerHTML">
+            Create a Link
+        </button>
+        <button hx-get="/delete" hx-target="main" hx-swap="outerHTML">
+            Delete a Link
+        </button>
+    </main>
+}

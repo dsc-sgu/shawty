@@ -10,7 +10,7 @@ type ShortenedLink struct {
 	Id          uuid.UUID `db:"id"`
 	Name        string    `db:"name"`
 	Target      string    `db:"target"`
-	Deleted     string    `db:"deleted"`
+	Deleted     bool      `db:"deleted"`
 	CreatedAt   time.Time `db:"created_at"`
 	CreatedFrom string    `db:"created_from"`
 	LastUpdate  time.Time `db:"last_update"`

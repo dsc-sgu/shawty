@@ -6,6 +6,7 @@ import (
 
 	"github.com/dsc-sgu/shawty/internal/config"
 	"github.com/dsc-sgu/shawty/internal/log"
+	"github.com/google/uuid"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 )
@@ -89,6 +90,7 @@ func (c *connection) FindLinkByName(ctx context.Context, name string) (
 	return links[0], len(links) != 0, nil
 }
 
+// Inserts link in the database.
 func (c *connection) SaveLink(ctx context.Context, l ShortenedLink) error {
 	tx, err := c.db.BeginTxx(ctx, nil)
 	if err != nil {
@@ -105,6 +107,30 @@ func (c *connection) SaveLink(ctx context.Context, l ShortenedLink) error {
 	}
 
 	if err := tx.Commit(); err != nil {
+		_ = tx.Rollback()
+		return err
+	}
+	return nil
+}
+
+// Marks link as `deleted` in the database.
+func (c *connection) DeleteLink(ctx context.Context, id uuid.UUID) error {
+	tx, err := c.db.BeginTxx(ctx, nil)
+	if err != nil {
+		return err
+	}
+
+	if _, err := tx.ExecContext(ctx, deleteLink, id); err != nil {
+		log.S.Errorw(
+			"Database query has failed, performing rollback",
+			"error", err,
+		)
+		_ = tx.Rollback()
+		return err
+	}
+
+	if err := tx.Commit(); err != nil {
+		_ = tx.Rollback()
 		return err
 	}
 	return nil

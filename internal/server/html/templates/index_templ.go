@@ -40,7 +40,11 @@ func IndexPage() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<header><h1>Link Shortener</h1></header><main><button hx-get=\"/create\" hx-swap=\"outerHTML\">Let's Do It!</button></main>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<header><h1>Link Shortener</h1></header>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = Home().Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

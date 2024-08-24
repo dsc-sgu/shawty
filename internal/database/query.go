@@ -12,3 +12,7 @@ LIMIT 1`
 const insertLink = `
 INSERT INTO links (id, name, target, created_from)
 VALUES (:id, :name, :target, :created_from)`
+
+const deleteLink = `
+UPDATE links SET deleted = true, last_update = now()
+WHERE id = $1`

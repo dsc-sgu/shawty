@@ -30,9 +30,12 @@ func PostCreate(c *gin.Context) {
 		return
 	}
 
-	if len(config.C.SharedSecret) != 0 &&
-		form.Data.Secret != config.C.SharedSecret {
-		form.Errors.Secret = "provide a secret"
+	if len(config.C.SharedSecret) != 0 {
+		if len(form.Data.Secret) == 0 {
+			form.Errors.Secret = "provide a secret"
+		} else if form.Data.Secret != config.C.SharedSecret {
+			form.Errors.Secret = "the secret is incorrect"
+		}
 	}
 
 	if len(form.Data.Name) == 0 {
@@ -85,7 +88,7 @@ func PostCreate(c *gin.Context) {
 
 	r := render.New(
 		c,
-		templates.Result(config.C.Ssl, config.C.Domain, form.Data.Name),
+		templates.CreateResult(config.C.Ssl, config.C.Domain, form.Data.Name),
 	)
 	c.Render(http.StatusOK, r)
 }

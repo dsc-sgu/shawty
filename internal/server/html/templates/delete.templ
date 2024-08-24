@@ -2,9 +2,9 @@ package templates
 
 import "github.com/dsc-sgu/shawty/internal/server/dto"
 
-templ CreateForm(form dto.CreateForm) {
+templ DeleteForm(form dto.DeleteForm) {
     <main>
-        <form hx-post="/create" hx-target="main" hx-swap="outerHTML">
+        <form hx-post="/delete" hx-target="main" hx-swap="outerHTML">
             if form.WithSecret {
                 <div>
                     <label for="secret">Shared Secret</label>
@@ -19,7 +19,7 @@ templ CreateForm(form dto.CreateForm) {
                 </div>
             }
             <div>
-                <label for="name">Name (Optional)</label>
+                <label for="name">Name</label>
                 <input type="text"
                        id="name"
                        name="name"
@@ -30,22 +30,9 @@ templ CreateForm(form dto.CreateForm) {
                 }
             </div>
             <div>
-                <label for="target">Target Link</label>
-                <input type="url"
-                       id="target"
-                       name="target"
-                       minlength="3"
-                       maxlength="512"
-                       value={ form.Data.Target }
-                       required>
-                if len(form.Errors.Target) != 0 {
-                    <span class="error">{ form.Errors.Target }</span> 
-                }
-            </div>
-            <div>
-                <button type="submit">Create</button>
+                <button type="submit">Delete</button>
                 <button hx-get="/home" hx-target="main" hx-swap="outerHTML">
-                    Homepage
+                    Nevermind...
                 </button>
             </div>
         </form>

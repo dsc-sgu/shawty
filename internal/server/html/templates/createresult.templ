@@ -1,7 +1,7 @@
 package templates
 
-templ Result(ssl bool, domain string, name string) {
-    <div>
+templ CreateResult(ssl bool, domain string, name string) {
+    <main>
         <div class="result">
             Your link
             if ssl {
@@ -10,8 +10,11 @@ templ Result(ssl bool, domain string, name string) {
                 <span class="link">http://{ domain }/s/{ name }</span>
             }
         </div>
-        <button hx-get="/create" hx-target="main">
+        <button hx-get="/home" hx-target="main" hx-swap="outerHTML">
+            Homepage
+        </button>
+        <button hx-get="/create" hx-target="main" hx-swap="outerHTML">
             Create Another
         </button>
-    </div>
+    </main>
 }

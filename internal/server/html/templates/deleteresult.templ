@@ -1,0 +1,10 @@
+package templates
+
+templ DeleteResult() {
+    <main>
+        <span class="result">The link has been deleted!</span>
+        <button hx-get="/home" hx-target="main" hx-swap="outerHTML">
+            Homepage
+        </button>
+    </main>
+}

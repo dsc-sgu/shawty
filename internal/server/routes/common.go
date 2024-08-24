@@ -11,14 +11,14 @@ import (
 
 func internalError(c *gin.Context) {
 	c.Header("HX-Retarget", "main")
-	c.Header("HX-Reswap", "innerHTML")
+	c.Header("HX-Reswap", "outerHTML")
 	r := render.New(c, templates.Error(util.InternalErrorText))
 	c.Render(http.StatusOK, r)
 }
 
 func linkNotFound(c *gin.Context) {
 	c.Header("HX-Retarget", "main")
-	c.Header("HX-Reswap", "innerHTML")
+	c.Header("HX-Reswap", "outerHTML")
 	r := render.New(c, templates.Error(util.LinkNotFoundText))
 	c.Render(http.StatusOK, r)
 }

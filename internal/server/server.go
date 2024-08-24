@@ -35,9 +35,12 @@ func Launch() {
 
 	e.Static("/static", "./static")
 	e.GET("/", routes.GetIndex)
+	e.GET("/home", routes.GetHome)
 	e.GET("/ping", routes.GetPing)
 	e.GET("/create", routes.GetCreate)
 	e.POST("/create", routes.PostCreate)
+	e.GET("/delete", routes.GetDelete)
+	e.POST("/delete", routes.PostDelete)
 	e.GET("/s/:name", routes.GetS)
 
 	// disable trusted proxy warning
