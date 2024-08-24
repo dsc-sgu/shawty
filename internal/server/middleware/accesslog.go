@@ -21,7 +21,7 @@ func AccessLogMiddleware() gin.HandlerFunc {
 
 		status := c.Writer.Status()
 		logger.Infow(
-			"Processed HTTP request",
+			"Sent HTTP response",
 			"status_code", status,
 			"time_elapsed", time.Since(startTime),
 		)
