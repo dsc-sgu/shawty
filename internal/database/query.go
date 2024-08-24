@@ -16,3 +16,5 @@ VALUES (:id, :name, :target, :created_from)`
 const deleteLink = `
 UPDATE links SET deleted = true, last_update = now()
 WHERE id = $1`
+
+const linksVisits = "SELECT * FROM link_visits ORDER BY last_update DESC"

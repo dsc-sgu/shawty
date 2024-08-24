@@ -16,6 +16,8 @@ log:
     level_encoder: lowercase
     time_key: timestamp
     time_encoder: iso8601
+pagination:
+  links_per_page: 20
 postgres:
   host: localhost
   port: 5432

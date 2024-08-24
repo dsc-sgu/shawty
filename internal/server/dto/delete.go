@@ -3,7 +3,7 @@ package dto
 type DeleteFormData struct {
 	// Shared secret, if specified in the config.
 	Secret string `form:"secret,omitempty"`
-	// Optional name of the link. Will be displayed
+	// Name of the link to delete. Will be displayed
 	// in the resulting URL.
 	Name string `form:"name,omitempty,min=1,max=256"`
 }

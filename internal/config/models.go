@@ -6,12 +6,13 @@ import (
 )
 
 type appConfig struct {
-	Ssl          bool         `yaml:"ssl"`
-	Domain       string       `yaml:"domain"`
-	SharedSecret string       `yaml:"shared_secret"`
-	Server       serverConfig `yaml:"server"`
-	Pg           pgConfig     `yaml:"postgres"`
-	Log          logConfig    `yaml:"log"`
+	Ssl          bool             `yaml:"ssl"`
+	Domain       string           `yaml:"domain"`
+	SharedSecret string           `yaml:"shared_secret"`
+	Server       serverConfig     `yaml:"server"`
+	Pg           pgConfig         `yaml:"postgres"`
+	Log          logConfig        `yaml:"log"`
+	Pagination   paginationConfig `yaml:"pagination"`
 }
 
 type serverConfig struct {
@@ -44,4 +45,8 @@ type logConfig struct {
 	ErrorOutputPaths []string        `yaml:"error_output_paths"`
 	DevMode          bool            `yaml:"dev_mode"`
 	EncoderConfig    encoderConfig   `yaml:"encoder_config"`
+}
+
+type paginationConfig struct {
+	LinksPerPage int `yaml:"links_per_page"`
 }

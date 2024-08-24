@@ -1,10 +1,12 @@
 package templates
 
+import "github.com/dsc-sgu/shawty/internal/server/html/templates/buttons"
+
 templ DeleteResult() {
     <main>
         <span class="result">The link has been deleted!</span>
-        <button hx-get="/home" hx-target="main" hx-swap="outerHTML">
-            Homepage
-        </button>
+        <div class="navigation">
+            @buttons.NavHome("")
+        </div>
     </main>
 }

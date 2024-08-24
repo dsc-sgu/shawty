@@ -1,6 +1,9 @@
 package templates
 
-import "github.com/dsc-sgu/shawty/internal/server/dto"
+import (
+    "github.com/dsc-sgu/shawty/internal/server/dto"
+    "github.com/dsc-sgu/shawty/internal/server/html/templates/buttons"
+)
 
 templ CreateForm(form dto.CreateForm) {
     <main>
@@ -42,11 +45,9 @@ templ CreateForm(form dto.CreateForm) {
                     <span class="error">{ form.Errors.Target }</span> 
                 }
             </div>
-            <div>
+            <div class="navigation">
                 <button type="submit">Create</button>
-                <button hx-get="/home" hx-target="main" hx-swap="outerHTML">
-                    Homepage
-                </button>
+                @buttons.NavHome("")
             </div>
         </form>
     </main>

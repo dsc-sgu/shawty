@@ -25,8 +25,7 @@ func PostCreate(c *gin.Context) {
 		WithSecret: len(config.C.SharedSecret) != 0,
 	}
 	if err := c.ShouldBind(&form); err != nil {
-		r := render.New(c, templates.CreateForm(form))
-		c.Render(http.StatusUnprocessableEntity, r)
+		c.Status(http.StatusUnprocessableEntity)
 		return
 	}
 

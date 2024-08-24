@@ -37,6 +37,7 @@ func Launch() {
 	e.GET("/", routes.GetIndex)
 	e.GET("/home", routes.GetHome)
 	e.GET("/ping", routes.GetPing)
+	e.GET("/browse", routes.GetBrowse)
 	e.GET("/create", routes.GetCreate)
 	e.POST("/create", routes.PostCreate)
 	e.GET("/delete", routes.GetDelete)

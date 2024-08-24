@@ -1,0 +1,51 @@
+package templates
+
+import (
+    "strconv"
+    "github.com/dsc-sgu/shawty/internal/server/dto"
+    "github.com/dsc-sgu/shawty/internal/database"
+    "github.com/dsc-sgu/shawty/internal/server/html/templates/buttons"
+)
+
+templ LinksView(params dto.LinksViewParams, data []database.LinkVisits) {
+    <main>
+        <div class="navigation">
+            @buttons.NavHome("")
+            @buttons.Prev()
+            <span class="page-number">{ strconv.Itoa(params.PageNumber) }</span>
+            @buttons.Next()
+        </div>
+
+        <div class="links">
+            // slv — shortened link's view
+            for _, slv := range data {
+                <div class="link">
+                    <div class="row name">
+                        <span class="label"></span>
+                        <span class="value">{ slv.Name }</span>
+                    </div>
+                    <div class="row target">
+                        <span class="label"></span>
+                        <span class="value">{ slv.Target }</span>
+                    </div>
+                    <div class="row visits">
+                        <span class="label"></span>
+                        <span class="value">{ strconv.Itoa(slv.TotalVisits) }</span>
+                    </div>
+                    <div class="row created-at">
+                        <span class="label"></span>
+                        <span class="value">{ slv.CreatedAt.String() }</span>
+                    </div>
+                    <div class="row created-from">
+                        <span class="label"></span>
+                        <span class="value">{ slv.CreatedFrom }</span>
+                    </div>
+                    <div class="row last-update">
+                        <span class="label"></span>
+                        <span class="value">{ slv.LastUpdate.String() }</span>
+                    </div>
+                </div>
+            }
+        </div>
+    </main>
+}

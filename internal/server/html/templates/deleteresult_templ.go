@@ -8,6 +8,7 @@ package templates
 import (
 	"github.com/a-h/templ"
 	templruntime "github.com/a-h/templ/runtime"
+	"github.com/dsc-sgu/shawty/internal/server/html/templates/buttons"
 )
 
 func DeleteResult() templ.Component {
@@ -28,7 +29,15 @@ func DeleteResult() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main><span class=\"result\">The link has been deleted!</span> <button hx-get=\"/home\" hx-target=\"main\" hx-swap=\"outerHTML\">Homepage</button></main>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main><span class=\"result\">The link has been deleted!</span><div class=\"navigation\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = buttons.NavHome("").Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></main>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

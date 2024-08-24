@@ -136,6 +136,20 @@ func (c *connection) DeleteLink(ctx context.Context, id uuid.UUID) error {
 	return nil
 }
 
+// Queries records from the view, that joins `links` and `visits`
+// tables, to count each link's visits.
+func (c *connection) GetLinksVisits(ctx context.Context, page int, size int) (
+	[]LinkVisits,
+	error,
+) {
+	var links []LinkVisits
+	if err := c.db.SelectContext(ctx, &links, linksVisits); err != nil {
+		log.S.Errorw("Database query has failed", "error", err)
+		return []LinkVisits{}, err
+	}
+	return links, nil
+}
+
 // Closes database connection.
 func (c *connection) Close() {
 	c.db.Close()

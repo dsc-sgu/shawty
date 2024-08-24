@@ -1,12 +1,13 @@
 package templates
 
+import "github.com/dsc-sgu/shawty/internal/server/html/templates/buttons"
+
 templ Home() {
     <main>
-        <button hx-get="/create" hx-target="main" hx-swap="outerHTML">
-            Create a Link
-        </button>
-        <button hx-get="/delete" hx-target="main" hx-swap="outerHTML">
-            Delete a Link
-        </button>
+        <div class="navigation">
+            @buttons.NavCreate("")
+            @buttons.NavDelete("")
+            @buttons.NavBrowse("")
+        </div>
     </main>
 }

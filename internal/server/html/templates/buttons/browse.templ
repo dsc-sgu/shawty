@@ -1,0 +1,13 @@
+package buttons
+
+templ NavBrowse(text string) {
+    if len(text) == 0 {
+        <button hx-get="/browse" hx-target="main" hx-swap="outerHTML">
+            View Links
+        </button>
+    } else {
+        <button hx-get="/browse" hx-target="main" hx-swap="outerHTML">
+            { text }
+        </button>
+    }
+}
