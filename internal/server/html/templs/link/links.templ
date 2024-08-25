@@ -41,21 +41,52 @@ templ LinkRow(lv database.LinkWithVisits, nextPage int, disabled bool) {
             hx-swap="afterend"
         }
     >
-        <td class="name">{ lv.Name }</td>
-        <td class="target">{ lv.Target }</td>
-        <td class="visits">{ strconv.Itoa(lv.TotalVisits) }</td>
-        <td class="created-at">{ lv.CreatedAt.String() }</td>
-        <td class="created-from">{ lv.CreatedFrom }</td>
+        <td class="name">
+            <div class="container">
+                <div class="content">
+                    { lv.Name }
+                </div>
+            </div>
+        </td>
+        <td class="target">
+            <div class="container">
+                <div class="content">
+                    { lv.Target }
+                </div>
+            </div>
+        </td>
+        <td class="visits">
+            <div class="container">
+                <div class="content">
+                    { strconv.Itoa(lv.TotalVisits) }
+                </div>
+            </div>
+        </td>
+        <td class="created-at">
+            <div class="container">
+                <div class="content">
+                    { lv.CreatedAt.Format(time.DateTime + " -0700") }
+                </div>
+            </div>
+        </td>
+        <td class="created-from">
+            <div class="container">
+                <div class="content">
+                    { lv.CreatedFrom }
+                </div>
+            </div>
+        </td>
         <td class="delete">
-            <div if !disabled {
+            if !disabled {
+                <div class="container"
                      hx-delete={ string(templ.URL(fmt.Sprintf("/links?name=%s", lv.Name))) }
                      hx-target={ fmt.Sprintf(`.link[data-name=%q]`, lv.Name) }
-                     hx-swap="outerHTML"
-                     hx-trigger="click"
-                 }
-            >
-                <img src="/static/img/trash.svg">
-            </div>
+                     hx-swap="outerHTML">
+                    <div class="content">
+                        <img src="/static/img/trash.svg">
+                    </div>
+                </div>
+            }
         </td>
     </tr>
 }

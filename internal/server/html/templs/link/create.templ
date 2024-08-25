@@ -7,8 +7,11 @@ import (
 
 templ CreateForm(form dto.CreateLinkForm) {
     <main>
-        <form hx-post="/links" hx-target="main" hx-swap="outerHTML">
-            <div>
+        <form class="link-create"
+              hx-post="/links"
+              hx-target="main"
+              hx-swap="outerHTML">
+            <div class="container">
                 <label for="link-name">Name (Optional)</label>
                 <input type="text"
                        id="link-name"
@@ -19,7 +22,7 @@ templ CreateForm(form dto.CreateLinkForm) {
                     <span class="error">{ form.Errors.Name }</span> 
                 }
             </div>
-            <div>
+            <div class="container">
                 <label for="link-target">Target</label>
                 <input type="url"
                        id="link-target"
@@ -33,8 +36,8 @@ templ CreateForm(form dto.CreateLinkForm) {
                 }
             </div>
             <div class="navigation">
-                <button type="submit">Create</button>
-                @buttons.NavHome("")
+                <button type="submit">Shorten!</button>
+                @buttons.NavHome("Home")
             </div>
         </form>
     </main>

@@ -14,6 +14,7 @@ func AccessLogMiddleware() gin.HandlerFunc {
 		startTime := time.Now()
 		logger := log.S.With(
 			"path", c.Request.URL.Path,
+			"method", c.Request.Method,
 		)
 		logger.Info("Got HTTP request")
 

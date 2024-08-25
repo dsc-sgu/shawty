@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+
+@import url("./reset.css");
+
+/* Font families */
+:root {
+    --h-font-family: "Ubuntu", "Jost", "Roboto", "Inter", sans-serif;
+    --text-font-family: "Source Sans 3", "Roboto", "Inter", sans-serif;    
+}
+
+/* Font sizes */
+:root {
+    --font-size-200: 9pt;
+    --font-size-300: 10pt;
+    --font-size-400: 12pt;
+    --font-size-500: 14pt;
+    --font-size-600: 16pt;
+    --font-size-700: 20pt;
+    --font-size-800: 28pt;
+    --font-size-900: 36pt;
+    --font-size-1000: 64pt;
+}
+
+/* Colors */
+:root {
+    --color-text-shadow-500: #a0a0b048;
+    --color-text-300: #eeeeee80;
+    --color-text-500: #ffffff;
+
+    --color-brand-1-500: #485ab0;
+}

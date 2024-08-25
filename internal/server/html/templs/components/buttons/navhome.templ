@@ -3,7 +3,7 @@ package buttons
 templ NavHome(text string) {
     if len(text) == 0 {
         <button hx-get="/home" hx-target="main" hx-swap="outerHTML">
-            Homepage
+            Home
         </button>
     } else {
         <button hx-get="/home" hx-target="main" hx-swap="outerHTML">

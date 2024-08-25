@@ -38,7 +38,7 @@ func Browse(params dto.LinksParams) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"link-browser\"><table class=\"links\" hx-indicator=\".link-browser .spinner\"><thead><tr><th>Name</th><th>Target</th><th>Visits</th><th>Created At</th><th>Created From</th></tr></thead> <tbody>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"link-browser\"><table class=\"links\" hx-indicator=\".link-browser .spinner\"><thead><tr><th>Name</th><th>Target</th><th>Visits</th><th>Created At</th><th>Created From</th><th>Delete</th></tr></thead> <tbody>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -30,14 +30,14 @@ func CreateForm(form dto.CreateLinkForm) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main><form hx-post=\"/links\" hx-target=\"main\" hx-swap=\"outerHTML\"><div><label for=\"link-name\">Name (Optional)</label> <input type=\"text\" id=\"link-name\" name=\"name\" pattern=\"[a-z0-9\\-]{0,256}\" value=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main><form class=\"link-create\" hx-post=\"/links\" hx-target=\"main\" hx-swap=\"outerHTML\"><div class=\"container\"><label for=\"link-name\">Name (Optional)</label> <input type=\"text\" id=\"link-name\" name=\"name\" pattern=\"[a-z0-9\\-]{0,256}\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(form.Data.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/server/html/templs/link/create.templ`, Line: 17, Col: 45}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/server/html/templs/link/create.templ`, Line: 20, Col: 45}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -55,7 +55,7 @@ func CreateForm(form dto.CreateLinkForm) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(form.Errors.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/server/html/templs/link/create.templ`, Line: 19, Col: 58}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/server/html/templs/link/create.templ`, Line: 22, Col: 58}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -66,14 +66,14 @@ func CreateForm(form dto.CreateLinkForm) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div><label for=\"link-target\">Target</label> <input type=\"url\" id=\"link-target\" name=\"target\" minlength=\"3\" maxlength=\"512\" value=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"container\"><label for=\"link-target\">Target</label> <input type=\"url\" id=\"link-target\" name=\"target\" minlength=\"3\" maxlength=\"512\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(form.Data.Target)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/server/html/templs/link/create.templ`, Line: 29, Col: 47}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/server/html/templs/link/create.templ`, Line: 32, Col: 47}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
@@ -91,7 +91,7 @@ func CreateForm(form dto.CreateLinkForm) templ.Component {
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(form.Errors.Target)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/server/html/templs/link/create.templ`, Line: 32, Col: 60}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/server/html/templs/link/create.templ`, Line: 35, Col: 60}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {
@@ -102,11 +102,11 @@ func CreateForm(form dto.CreateLinkForm) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"navigation\"><button type=\"submit\">Create</button>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"navigation\"><button type=\"submit\">Shorten!</button>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = buttons.NavHome("").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = buttons.NavHome("Home").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

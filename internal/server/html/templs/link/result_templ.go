@@ -29,7 +29,7 @@ func Result(ssl bool, domain string, name string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main><div class=\"result\"><span>Your link</span><hr><span class=\"link\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main><div class=\"result\"><h4>Your Link</h4><hr><span class=\"link\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -92,11 +92,11 @@ func Result(ssl bool, domain string, name string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = buttons.NavHome("").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = buttons.NavCreate("Create Another").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = buttons.NavCreate("Create Another").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = buttons.NavHome("").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

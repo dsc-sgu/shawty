@@ -5,7 +5,7 @@ import "github.com/dsc-sgu/shawty/internal/server/html/templs/components/buttons
 templ Result(ssl bool, domain string, name string) {
     <main>
         <div class="result">
-            <span>Your link</span>
+            <h4>Your Link</h4>
             <hr>
             <span class="link">
                 if ssl {
@@ -16,8 +16,8 @@ templ Result(ssl bool, domain string, name string) {
             </span>
         </div>
         <div class="navigation">
-            @buttons.NavHome("")
             @buttons.NavCreate("Create Another")
+            @buttons.NavHome("")
         </div>
     </main>
 }

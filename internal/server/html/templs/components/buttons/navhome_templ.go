@@ -29,7 +29,7 @@ func NavHome(text string) templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		if len(text) == 0 {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button hx-get=\"/home\" hx-target=\"main\" hx-swap=\"outerHTML\">Homepage</button>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button hx-get=\"/home\" hx-target=\"main\" hx-swap=\"outerHTML\">Home</button>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

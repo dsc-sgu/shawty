@@ -1,14 +1,115 @@
-*, *::before, *::after{
-    box-sizing: border-box; 
+@import url("./base.css");
+@import url("./animation.css");
+
+body {
+    font-family: var(--text-font-family);
+    font-size: var(--font-size-500);
+    color: var(--color-text-500);
+
+    background-color: var(--color-brand-1-500);
 }
 
-* {
-    margin: 0; 
-    padding: 0; 
+main {
+    min-width: 30%;
 }
 
-a:not([class]){
-    text-decoration-skip-ink: auto; 
+hr {
+    width: 75%;
+    border: 1pt solid var(--color-text-500);
+    margin: 1em 0;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: var(--h-font-family);
+}
+h1 {
+    font-size: var(--font-size-1000);
+    padding-bottom: 0.25em;
+    text-shadow: 7px 7px var(--color-text-shadow-500);
+}
+h2 {
+    font-size: var(--font-size-900);
+}
+h3 {
+    font-size: var(--font-size-800);
+}
+h4 {
+    font-size: var(--font-size-700);
+}
+h5 {
+    font-size: var(--font-size-600);
+}
+
+header {
+    display: flex;
+    width: 100%;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 5em 0 2em 0;
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navigation {
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+    padding: 2em;
+}
+
+button {
+    cursor: pointer;
+
+    color: var(--color-text-500);
+    font-family: var(--text-font-family);
+    font-weight: bold;
+
+    border: 2pt solid var(--color-text-500);
+    border-radius: 15px;
+
+    padding: 0.5em 1em;
+
+    background: none;
+    background-image: linear-gradient(-35deg, #e0e0e010 0%, #e0e0e030 100%);
+    background-size: 400% 400%;
+
+    -webkit-animation: background-cruise 3s ease infinite;
+    -moz-animation: background-cruise 3s ease infinite;
+    animation: background-cruise 3s ease infinite;
+}
+
+.navigation button {
+    font-size: var(--font-size-500);
+}
+
+table, tr, td, th {
+    border: 1.5pt solid var(--color-text-300);
+    border-spacing: 0;
+}
+
+td .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+td .container .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+        
+    text-align: center;
+}
+
+td, th {
+    padding: 0 1em;
 }
 
 .htmx-indicator{
@@ -31,20 +132,58 @@ a:not([class]){
     justify-content: center;
 }
 
+.link-browser {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 1em;
+
+    overflow-x: scroll;
+}
+
+@media (min-width: 1080px) {
+    .links {
+        max-width: 80%;
+    }
+}
+
 .link .target {
     max-width: 20%;
     word-break: break-all;
 }
 
-.link .delete {
+.link .delete .content {
     cursor: pointer;
 }
 
 .link .delete img {
-    max-width: 2em;
+    max-width: 1.5em;
 }
 
 .link.disabled {
-    color: gray;
-    fill: gray;
+    color: var(--color-text-300);
+}
+
+.link-create .container {
+    padding: 0.25em 0;
+}
+
+.link-create input {
+    height: 1.25lh;
+    width: 100%;
+    padding: 0 0.5em;
+
+    font-size: var(--font-size-500);
+
+    border: none;
+    border-radius: 10px;
+}
+
+.result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
