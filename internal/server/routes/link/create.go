@@ -7,7 +7,7 @@ import (
 	"github.com/dsc-sgu/shawty/internal/config"
 	"github.com/dsc-sgu/shawty/internal/database"
 	"github.com/dsc-sgu/shawty/internal/random"
-	"github.com/dsc-sgu/shawty/internal/server/dto"
+	linkdto "github.com/dsc-sgu/shawty/internal/server/dto/link"
 	"github.com/dsc-sgu/shawty/internal/server/html/render"
 	linktempls "github.com/dsc-sgu/shawty/internal/server/html/templs/link"
 	"github.com/dsc-sgu/shawty/internal/server/routes/common"
@@ -17,7 +17,7 @@ import (
 )
 
 func NewLink(c *gin.Context) {
-	form := dto.CreateLinkForm{}
+	form := linkdto.CreateForm{}
 	r := render.New(c, linktempls.CreateForm(form))
 	c.Render(http.StatusOK, r)
 }
@@ -25,7 +25,7 @@ func NewLink(c *gin.Context) {
 var nameRegex = regexp.MustCompile(`^[a-z0-9\-]{1,256}$`)
 
 func PostLink(c *gin.Context) {
-	var form dto.CreateLinkForm
+	var form linkdto.CreateForm
 	if err := c.ShouldBind(&form); err != nil {
 		c.Status(http.StatusUnprocessableEntity)
 		return

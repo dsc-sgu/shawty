@@ -4,10 +4,10 @@ import (
     "fmt"
     "strconv"
     "github.com/dsc-sgu/shawty/internal/database"
-    "github.com/dsc-sgu/shawty/internal/server/dto"
+    linkdto "github.com/dsc-sgu/shawty/internal/server/dto/link"
 )
 
-templ LinkRows(params dto.LinksParams) {
+templ LinkRows(params linkdto.ViewParams) {
     if len(params.Data) > 0 {
         for _, lv := range params.Data[:len(params.Data)-1] {
             @LinkRow(lv, -1, false)

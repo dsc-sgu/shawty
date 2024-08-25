@@ -8,11 +8,12 @@ package linktempls
 import (
 	"github.com/a-h/templ"
 	templruntime "github.com/a-h/templ/runtime"
-	"github.com/dsc-sgu/shawty/internal/server/dto"
+
+	linkdto "github.com/dsc-sgu/shawty/internal/server/dto/link"
 	"github.com/dsc-sgu/shawty/internal/server/html/templs/components/buttons"
 )
 
-func Browse(params dto.LinksParams) templ.Component {
+func Browse(params linkdto.ViewParams) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)

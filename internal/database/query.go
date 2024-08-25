@@ -22,3 +22,7 @@ SELECT * FROM link_visits
 ORDER BY last_update DESC
 LIMIT $1
 OFFSET $2`
+
+const insertVisit = `
+INSERT INTO visits (id, link_id, tag, host)
+VALUES (:id, :link_id, :tag, :host)`

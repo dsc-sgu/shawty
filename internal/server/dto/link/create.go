@@ -1,4 +1,4 @@
-package dto
+package linkdto
 
 type CreateFormData struct {
 	// Optional name of the link. Will be displayed
@@ -18,7 +18,7 @@ func (e CreateFormErrors) Any() bool {
 	return len(e.Name) != 0 || len(e.Target) != 0
 }
 
-type CreateLinkForm struct {
+type CreateForm struct {
 	Data   CreateFormData
 	Errors CreateFormErrors
 }

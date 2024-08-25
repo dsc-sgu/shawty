@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/dsc-sgu/shawty/internal/database"
-	"github.com/dsc-sgu/shawty/internal/server/dto"
+	linkdto "github.com/dsc-sgu/shawty/internal/server/dto/link"
 	"github.com/dsc-sgu/shawty/internal/server/html/render"
 	linktempls "github.com/dsc-sgu/shawty/internal/server/html/templs/link"
 	"github.com/dsc-sgu/shawty/internal/server/routes/common"
@@ -13,7 +13,7 @@ import (
 )
 
 func DeleteLink(c *gin.Context) {
-	var query dto.LinkDeleteQuery
+	var query linkdto.DeleteQuery
 	if err := c.ShouldBind(&query); err != nil {
 		c.Status(http.StatusUnprocessableEntity)
 		return

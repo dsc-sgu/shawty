@@ -5,7 +5,7 @@ import (
 
 	"github.com/dsc-sgu/shawty/internal/config"
 	"github.com/dsc-sgu/shawty/internal/database"
-	"github.com/dsc-sgu/shawty/internal/server/dto"
+	linkdto "github.com/dsc-sgu/shawty/internal/server/dto/link"
 	"github.com/dsc-sgu/shawty/internal/server/html/render"
 	linktempls "github.com/dsc-sgu/shawty/internal/server/html/templs/link"
 	"github.com/dsc-sgu/shawty/internal/server/routes/common"
@@ -13,13 +13,13 @@ import (
 )
 
 func GetLinks(c *gin.Context) {
-	var query dto.LinksViewQuery
+	var query linkdto.ViewQuery
 	if err := c.ShouldBind(&query); err != nil {
 		c.Status(http.StatusUnprocessableEntity)
 		return
 	}
 
-	params := dto.LinksParams{Query: query}
+	params := linkdto.ViewParams{Query: query}
 	if params.Query.Page == 0 {
 		params.Query.Page = 1 // if unset
 	}

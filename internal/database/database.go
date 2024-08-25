@@ -154,6 +154,29 @@ func (c *connection) GetLinksVisits(ctx context.Context, page int, size int) (
 	return links, nil
 }
 
+// Inserts visit in the database.
+func (c *connection) SaveVisit(ctx context.Context, v Visit) error {
+	tx, err := c.db.BeginTxx(ctx, nil)
+	if err != nil {
+		return err
+	}
+
+	if _, err := tx.NamedExecContext(ctx, insertVisit, &v); err != nil {
+		log.S.Errorw(
+			"Database query has failed, performing rollback",
+			"error", err,
+		)
+		_ = tx.Rollback()
+		return err
+	}
+
+	if err := tx.Commit(); err != nil {
+		_ = tx.Rollback()
+		return err
+	}
+	return nil
+}
+
 // Closes database connection.
 func (c *connection) Close() {
 	c.db.Close()

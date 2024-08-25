@@ -1,15 +1,15 @@
-package dto
+package linkdto
 
 import "github.com/dsc-sgu/shawty/internal/database"
 
-type LinksViewQuery struct {
+type ViewQuery struct {
 	// Page number to query for.
 	Page int `form:"page,min=1,omitempty"`
 }
 
-type LinksParams struct {
+type ViewParams struct {
 	// Query parameters.
-	Query LinksViewQuery
+	Query ViewQuery
 	// Data to display in the view.
 	Data []database.LinkWithVisits
 }

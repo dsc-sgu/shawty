@@ -1,11 +1,11 @@
 package linktempls
 
 import (
-    "github.com/dsc-sgu/shawty/internal/server/dto"
+    linkdto "github.com/dsc-sgu/shawty/internal/server/dto/link"
     "github.com/dsc-sgu/shawty/internal/server/html/templs/components/buttons"
 )
 
-templ CreateForm(form dto.CreateLinkForm) {
+templ CreateForm(form linkdto.CreateForm) {
     <main>
         <form class="link-create"
               hx-post="/links"
