@@ -4,11 +4,11 @@ import (
 	"net/http"
 
 	"github.com/dsc-sgu/shawty/internal/server/html/render"
-	"github.com/dsc-sgu/shawty/internal/server/html/templates"
+	"github.com/dsc-sgu/shawty/internal/server/html/templs"
 	"github.com/gin-gonic/gin"
 )
 
 func GetIndex(c *gin.Context) {
-	r := render.New(c, templates.IndexPage())
+	r := render.New(c, templs.IndexPage())
 	c.Render(http.StatusOK, r)
 }

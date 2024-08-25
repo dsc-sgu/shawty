@@ -7,7 +7,7 @@ import (
 	"github.com/dsc-sgu/shawty/internal/database"
 	"github.com/dsc-sgu/shawty/internal/server/dto"
 	"github.com/dsc-sgu/shawty/internal/server/html/render"
-	"github.com/dsc-sgu/shawty/internal/server/html/templates"
+	linktempls "github.com/dsc-sgu/shawty/internal/server/html/templs/link"
 	"github.com/dsc-sgu/shawty/internal/server/routes/common"
 	"github.com/gin-gonic/gin"
 )
@@ -21,8 +21,7 @@ func GetLinks(c *gin.Context) {
 
 	params := dto.LinksParams{Query: query}
 	if params.Query.Page == 0 {
-		// if unset
-		params.Query.Page = 1
+		params.Query.Page = 1 // if unset
 	}
 
 	lv, err := database.C.GetLinksVisits(
@@ -37,11 +36,11 @@ func GetLinks(c *gin.Context) {
 
 	params.Data = lv
 	if params.Query.Page == 1 {
-		r := render.New(c, templates.Browse(params))
+		r := render.New(c, linktempls.Browse(params))
 		c.Render(http.StatusOK, r)
 		return
 	}
 
-	r := render.New(c, templates.LinkRows(params))
+	r := render.New(c, linktempls.LinkRows(params))
 	c.Render(http.StatusOK, r)
 }

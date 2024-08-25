@@ -6,7 +6,7 @@ import (
 	"github.com/dsc-sgu/shawty/internal/database"
 	"github.com/dsc-sgu/shawty/internal/server/dto"
 	"github.com/dsc-sgu/shawty/internal/server/html/render"
-	"github.com/dsc-sgu/shawty/internal/server/html/templates"
+	linktempls "github.com/dsc-sgu/shawty/internal/server/html/templs/link"
 	"github.com/dsc-sgu/shawty/internal/server/routes/common"
 
 	"github.com/gin-gonic/gin"
@@ -34,6 +34,6 @@ func DeleteLink(c *gin.Context) {
 		return
 	}
 
-	r := render.New(c, templates.LinkRow(lv, -1, true))
+	r := render.New(c, linktempls.LinkRow(lv, -1, true))
 	c.Render(http.StatusOK, r)
 }

@@ -13,7 +13,7 @@ import (
 	"github.com/dsc-sgu/shawty/internal/log"
 	"github.com/dsc-sgu/shawty/internal/server/middleware"
 	"github.com/dsc-sgu/shawty/internal/server/routes"
-	linkroutes "github.com/dsc-sgu/shawty/internal/server/routes/links"
+	linkroutes "github.com/dsc-sgu/shawty/internal/server/routes/link"
 	"github.com/gin-gonic/gin"
 )
 

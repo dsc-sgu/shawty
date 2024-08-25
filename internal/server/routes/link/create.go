@@ -9,7 +9,7 @@ import (
 	"github.com/dsc-sgu/shawty/internal/random"
 	"github.com/dsc-sgu/shawty/internal/server/dto"
 	"github.com/dsc-sgu/shawty/internal/server/html/render"
-	"github.com/dsc-sgu/shawty/internal/server/html/templates"
+	linktempls "github.com/dsc-sgu/shawty/internal/server/html/templs/link"
 	"github.com/dsc-sgu/shawty/internal/server/routes/common"
 
 	"github.com/gin-gonic/gin"
@@ -18,7 +18,7 @@ import (
 
 func NewLink(c *gin.Context) {
 	form := dto.CreateLinkForm{}
-	r := render.New(c, templates.CreateForm(form))
+	r := render.New(c, linktempls.CreateForm(form))
 	c.Render(http.StatusOK, r)
 }
 
@@ -62,7 +62,7 @@ func PostLink(c *gin.Context) {
 	}
 
 	if form.Errors.Any() {
-		r := render.New(c, templates.CreateForm(form))
+		r := render.New(c, linktempls.CreateForm(form))
 		c.Render(http.StatusOK, r)
 		return
 	}
@@ -86,7 +86,7 @@ func PostLink(c *gin.Context) {
 
 	r := render.New(
 		c,
-		templates.CreateResult(config.C.Ssl, config.C.Domain, form.Data.Name),
+		linktempls.Result(config.C.Ssl, config.C.Domain, form.Data.Name),
 	)
 	c.Render(http.StatusOK, r)
 }
