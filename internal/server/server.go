@@ -42,7 +42,6 @@ func Launch() {
 	e.POST("/links", linkroutes.PostLink)
 	e.DELETE("/links", linkroutes.DeleteLink)
 	e.GET("/links/new", linkroutes.NewLink)
-	// TODO(evgenymng): Check for link's name validity.
 	e.GET("/s/:name", routes.Redirect)
 
 	// disable trusted proxy warning
