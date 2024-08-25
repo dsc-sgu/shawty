@@ -13,6 +13,7 @@ import (
 	"github.com/dsc-sgu/shawty/internal/log"
 	"github.com/dsc-sgu/shawty/internal/server/middleware"
 	"github.com/dsc-sgu/shawty/internal/server/routes"
+	linkroutes "github.com/dsc-sgu/shawty/internal/server/routes/links"
 	"github.com/gin-gonic/gin"
 )
 
@@ -37,12 +38,12 @@ func Launch() {
 	e.GET("/", routes.GetIndex)
 	e.GET("/home", routes.GetHome)
 	e.GET("/ping", routes.GetPing)
-	e.GET("/browse", routes.GetBrowse)
-	e.GET("/create", routes.GetCreate)
-	e.POST("/create", routes.PostCreate)
-	e.GET("/delete", routes.GetDelete)
-	e.POST("/delete", routes.PostDelete)
-	e.GET("/s/:name", routes.GetS)
+	e.GET("/links", linkroutes.GetLinks)
+	e.POST("/links", linkroutes.PostLink)
+	e.DELETE("/links", linkroutes.DeleteLink)
+	e.GET("/links/new", linkroutes.NewLink)
+	// TODO(evgenymng): Check for link's name validity.
+	e.GET("/s/:name", routes.Redirect)
 
 	// disable trusted proxy warning
 	if err := e.SetTrustedProxies(nil); err != nil {

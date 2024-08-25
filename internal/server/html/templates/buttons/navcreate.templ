@@ -1,0 +1,11 @@
+package buttons
+
+templ NavCreate(text string) {
+    <button hx-get="/links/new" hx-target="main" hx-swap="outerHTML">
+        if len(text) == 0 {
+            Create
+        } else {
+            { text }
+        }
+    </button>
+}

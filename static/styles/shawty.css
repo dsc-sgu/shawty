@@ -10,3 +10,41 @@
 a:not([class]){
     text-decoration-skip-ink: auto; 
 }
+
+.htmx-indicator{
+    opacity: 0;
+    transition: opacity 500ms ease-in;
+}
+
+.htmx-request .htmx-indicator{
+    opacity: 1;
+}
+
+.htmx-request.htmx-indicator{
+    opacity: 1;
+}
+
+.spinner-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.link .target {
+    max-width: 20%;
+    word-break: break-all;
+}
+
+.link .delete {
+    cursor: pointer;
+}
+
+.link .delete img {
+    max-width: 2em;
+}
+
+.link.disabled {
+    color: gray;
+    fill: gray;
+}

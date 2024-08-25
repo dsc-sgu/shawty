@@ -1,4 +1,4 @@
-package routes
+package common
 
 import (
 	"net/http"
@@ -9,14 +9,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func internalError(c *gin.Context) {
+func InternalError(c *gin.Context) {
 	c.Header("HX-Retarget", "main")
 	c.Header("HX-Reswap", "outerHTML")
 	r := render.New(c, templates.Error(util.InternalErrorText))
 	c.Render(http.StatusOK, r)
 }
 
-func linkNotFound(c *gin.Context) {
+func LinkNotFound(c *gin.Context) {
 	c.Header("HX-Retarget", "main")
 	c.Header("HX-Reswap", "outerHTML")
 	r := render.New(c, templates.Error(util.LinkNotFoundText))

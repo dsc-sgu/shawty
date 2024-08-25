@@ -25,6 +25,7 @@ CREATE OR REPLACE VIEW link_visits AS (
 		GROUP BY (v.link_id)
 	)
 	SELECT
+        l.id,
 		l.name,
 		l.target,
 		l.created_at,
@@ -33,4 +34,5 @@ CREATE OR REPLACE VIEW link_visits AS (
 		coalesce(vc.total_count, 0) total_visits
 	FROM links l
 	LEFT JOIN visit_count vc ON l.id = vc.link_id
+    WHERE NOT l.deleted
 );`

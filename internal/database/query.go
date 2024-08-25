@@ -5,8 +5,8 @@ SELECT count(*) FROM links
 WHERE name = $1 AND NOT deleted`
 
 const findByName = `
-SELECT * FROM links
-WHERE name = $1 AND NOT deleted
+SELECT * FROM link_visits
+WHERE name = $1
 LIMIT 1`
 
 const insertLink = `
@@ -17,4 +17,8 @@ const deleteLink = `
 UPDATE links SET deleted = true, last_update = now()
 WHERE id = $1`
 
-const linksVisits = "SELECT * FROM link_visits ORDER BY last_update DESC"
+const linksVisits = `
+SELECT * FROM link_visits
+ORDER BY last_update DESC
+LIMIT $1
+OFFSET $2`

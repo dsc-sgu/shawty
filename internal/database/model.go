@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-type ShortenedLink struct {
+type Link struct {
 	Id          uuid.UUID `db:"id"`
 	Name        string    `db:"name"`
 	Target      string    `db:"target"`
@@ -16,7 +16,8 @@ type ShortenedLink struct {
 	LastUpdate  time.Time `db:"last_update"`
 }
 
-type LinkVisits struct {
+type LinkWithVisits struct {
+	Id          uuid.UUID `db:"id"`
 	Name        string    `db:"name"`
 	Target      string    `db:"target"`
 	CreatedAt   time.Time `db:"created_at"`

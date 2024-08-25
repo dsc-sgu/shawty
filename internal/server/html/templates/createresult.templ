@@ -5,12 +5,15 @@ import "github.com/dsc-sgu/shawty/internal/server/html/templates/buttons"
 templ CreateResult(ssl bool, domain string, name string) {
     <main>
         <div class="result">
-            Your link
-            if ssl {
-                <span class="link">https://{ domain }/s/{ name }</span>
-            } else {
-                <span class="link">http://{ domain }/s/{ name }</span>
-            }
+            <span>Your link</span>
+            <hr>
+            <span class="link">
+                if ssl {
+                    https://{ domain }/s/{ name }
+                } else {
+                    http://{ domain }/s/{ name }
+                }
+            </span>
         </div>
         <div class="navigation">
             @buttons.NavHome("")

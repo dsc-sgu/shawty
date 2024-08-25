@@ -5,37 +5,24 @@ import (
     "github.com/dsc-sgu/shawty/internal/server/html/templates/buttons"
 )
 
-templ CreateForm(form dto.CreateForm) {
+templ CreateForm(form dto.CreateLinkForm) {
     <main>
-        <form hx-post="/create" hx-target="main" hx-swap="outerHTML">
-            if form.WithSecret {
-                <div>
-                    <label for="secret">Shared Secret</label>
-                    <input type="password"
-                           id="secret"
-                           name="secret"
-                           value={ form.Data.Secret }
-                           required>
-                    if len(form.Errors.Secret) != 0 {
-                        <span class="error">{ form.Errors.Secret }</span> 
-                    }
-                </div>
-            }
+        <form hx-post="/links" hx-target="main" hx-swap="outerHTML">
             <div>
-                <label for="name">Name (Optional)</label>
+                <label for="link-name">Name (Optional)</label>
                 <input type="text"
-                       id="name"
+                       id="link-name"
                        name="name"
-                       maxlength="256"
+                       pattern="[a-z0-9\-]{0,256}"
                        value={ form.Data.Name }>
                 if len(form.Errors.Name) != 0 {
                     <span class="error">{ form.Errors.Name }</span> 
                 }
             </div>
             <div>
-                <label for="target">Target Link</label>
+                <label for="link-target">Target</label>
                 <input type="url"
-                       id="target"
+                       id="link-target"
                        name="target"
                        minlength="3"
                        maxlength="512"

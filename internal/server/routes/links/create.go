@@ -1,7 +1,8 @@
-package routes
+package linkroutes
 
 import (
 	"net/http"
+	"regexp"
 
 	"github.com/dsc-sgu/shawty/internal/config"
 	"github.com/dsc-sgu/shawty/internal/database"
@@ -9,32 +10,25 @@ import (
 	"github.com/dsc-sgu/shawty/internal/server/dto"
 	"github.com/dsc-sgu/shawty/internal/server/html/render"
 	"github.com/dsc-sgu/shawty/internal/server/html/templates"
+	"github.com/dsc-sgu/shawty/internal/server/routes/common"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )
 
-func GetCreate(c *gin.Context) {
-	form := dto.CreateForm{WithSecret: len(config.C.SharedSecret) != 0}
+func NewLink(c *gin.Context) {
+	form := dto.CreateLinkForm{}
 	r := render.New(c, templates.CreateForm(form))
 	c.Render(http.StatusOK, r)
 }
 
-func PostCreate(c *gin.Context) {
-	form := dto.CreateForm{
-		WithSecret: len(config.C.SharedSecret) != 0,
-	}
+var nameRegex = regexp.MustCompile(`^[a-z0-9\-]{1,256}$`)
+
+func PostLink(c *gin.Context) {
+	var form dto.CreateLinkForm
 	if err := c.ShouldBind(&form); err != nil {
 		c.Status(http.StatusUnprocessableEntity)
 		return
-	}
-
-	if len(config.C.SharedSecret) != 0 {
-		if len(form.Data.Secret) == 0 {
-			form.Errors.Secret = "provide a secret"
-		} else if form.Data.Secret != config.C.SharedSecret {
-			form.Errors.Secret = "the secret is incorrect"
-		}
 	}
 
 	if len(form.Data.Name) == 0 {
@@ -46,7 +40,7 @@ func PostCreate(c *gin.Context) {
 			default:
 				form.Data.Name = random.RandSeq(10)
 				if taken, err := database.C.IsNameTaken(c, form.Data.Name); err != nil {
-					internalError(c)
+					common.InternalError(c)
 					return
 				} else if !taken {
 					break loop
@@ -54,8 +48,13 @@ func PostCreate(c *gin.Context) {
 			}
 		}
 	} else {
+		if !nameRegex.Match([]byte(form.Data.Name)) {
+			c.Status(http.StatusBadRequest)
+			return
+		}
+
 		if taken, err := database.C.IsNameTaken(c, form.Data.Name); err != nil {
-			internalError(c)
+			common.InternalError(c)
 			return
 		} else if taken {
 			form.Errors.Name = "a link with this name already exists"
@@ -70,18 +69,18 @@ func PostCreate(c *gin.Context) {
 
 	id, err := uuid.NewV7()
 	if err != nil {
-		internalError(c)
+		common.InternalError(c)
 		return
 	}
 
-	sl := database.ShortenedLink{
+	sl := database.Link{
 		Id:          id,
 		Name:        form.Data.Name,
 		Target:      form.Data.Target,
 		CreatedFrom: "web_ui",
 	}
 	if err := database.C.SaveLink(c, sl); err != nil {
-		internalError(c)
+		common.InternalError(c)
 		return
 	}
 

@@ -1,0 +1,61 @@
+package templates
+
+import (
+    "fmt"
+    "strconv"
+    "github.com/dsc-sgu/shawty/internal/database"
+    "github.com/dsc-sgu/shawty/internal/server/dto"
+)
+
+templ LinkRows(params dto.LinksParams) {
+    if len(params.Data) > 0 {
+        for _, lv := range params.Data[:len(params.Data)-1] {
+            @LinkRow(lv, -1, false)
+        }
+        @LinkRow(params.Data[len(params.Data)-1], params.Query.Page + 1, false)
+        
+        // NOTE(evgenymng): Possible bug — when a user presses "delete"
+        // button, we might swap the last row before the GET request
+        // has finished. Even worse, it might theoretically happen
+        // before the request has even had a chance to start.
+        // The solution would be to add another invisible element, that
+        // triggers request instead, and doesn't get swapped on user's
+        // button press.
+    }
+}
+
+func linkRowsQuery(page int) string {
+    return fmt.Sprintf("/links?page=%d", page)
+}
+
+templ LinkRow(lv database.LinkWithVisits, nextPage int, disabled bool) {
+    <tr if disabled {
+            class="link disabled"
+        } else {
+            class="link"
+        }
+        data-name={ lv.Name }
+        if nextPage > 0 {
+            hx-get={ linkRowsQuery(nextPage) }
+            hx-trigger="revealed"
+            hx-swap="afterend"
+        }
+    >
+        <td class="name">{ lv.Name }</td>
+        <td class="target">{ lv.Target }</td>
+        <td class="visits">{ strconv.Itoa(lv.TotalVisits) }</td>
+        <td class="created-at">{ lv.CreatedAt.String() }</td>
+        <td class="created-from">{ lv.CreatedFrom }</td>
+        <td class="delete">
+            <div if !disabled {
+                     hx-delete={ string(templ.URL(fmt.Sprintf("/links?name=%s", lv.Name))) }
+                     hx-target={ fmt.Sprintf(`.link[data-name=%q]`, lv.Name) }
+                     hx-swap="outerHTML"
+                     hx-trigger="click"
+                 }
+            >
+                <img src="/static/img/trash.svg">
+            </div>
+        </td>
+    </tr>
+}

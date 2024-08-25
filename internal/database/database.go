@@ -78,20 +78,24 @@ func (c *connection) IsNameTaken(
 // Finds link by its name. The second return value is the indicator,
 // whether or not a link with this name exists in the database.
 func (c *connection) FindLinkByName(ctx context.Context, name string) (
-	ShortenedLink,
+	LinkWithVisits,
 	bool,
 	error,
 ) {
-	var links []ShortenedLink
+	var links []LinkWithVisits
 	if err := c.db.SelectContext(ctx, &links, findByName, name); err != nil {
 		log.S.Errorw("Database query has failed", "error", err)
-		return ShortenedLink{}, false, err
+		return LinkWithVisits{}, false, err
 	}
-	return links[0], len(links) != 0, nil
+	if len(links) != 0 {
+		return links[0], true, nil
+	} else {
+		return LinkWithVisits{}, false, nil
+	}
 }
 
 // Inserts link in the database.
-func (c *connection) SaveLink(ctx context.Context, l ShortenedLink) error {
+func (c *connection) SaveLink(ctx context.Context, l Link) error {
 	tx, err := c.db.BeginTxx(ctx, nil)
 	if err != nil {
 		return err
@@ -139,13 +143,13 @@ func (c *connection) DeleteLink(ctx context.Context, id uuid.UUID) error {
 // Queries records from the view, that joins `links` and `visits`
 // tables, to count each link's visits.
 func (c *connection) GetLinksVisits(ctx context.Context, page int, size int) (
-	[]LinkVisits,
+	[]LinkWithVisits,
 	error,
 ) {
-	var links []LinkVisits
-	if err := c.db.SelectContext(ctx, &links, linksVisits); err != nil {
+	var links []LinkWithVisits
+	if err := c.db.SelectContext(ctx, &links, linksVisits, size, page*size); err != nil {
 		log.S.Errorw("Database query has failed", "error", err)
-		return []LinkVisits{}, err
+		return []LinkWithVisits{}, err
 	}
 	return links, nil
 }

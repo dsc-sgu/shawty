@@ -1,0 +1,36 @@
+package templates
+
+import (
+    "github.com/dsc-sgu/shawty/internal/server/dto"
+    "github.com/dsc-sgu/shawty/internal/server/html/templates/buttons"
+)
+
+templ Browse(params dto.LinksParams) {
+    <main>
+        <div class="navigation">
+            @buttons.NavHome("")
+        </div>
+
+        <div class="link-browser">
+            <table class="links" hx-indicator=".link-browser .spinner">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Target</th>
+                        <th>Visits</th>
+                        <th>Created At</th>
+                        <th>Created From</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @LinkRows(params)
+                </tbody>
+            </table>
+            <div class="spinner-container">
+                <img class="htmx-indicator spinner"
+                     width="60"
+                     src="/static/img/bars.svg"/>
+            </div>
+        </div>
+    </main>
+}
