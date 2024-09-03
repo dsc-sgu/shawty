@@ -8,7 +8,7 @@ services:
       context: ..
       dockerfile: "deploy/Dockerfile.service"
     ports:
-      - "8080:80"
+      - "5001:80"
     volumes:
       - "../config:/app/config"
     restart: unless-stopped
@@ -25,8 +25,6 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
        - "./data/postgres:/data/postgres"
-    ports:
-      - "5432:5432"
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready", "-U", "postgres"]

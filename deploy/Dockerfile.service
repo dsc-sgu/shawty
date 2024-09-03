@@ -16,5 +16,6 @@ FROM scratch AS final
 WORKDIR /app
 
 COPY --from=builder /app/bin/service .
+COPY static /app/static
 
 ENTRYPOINT ["/app/service"]

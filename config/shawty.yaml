@@ -1,11 +1,11 @@
 ssl: false
-domain: "localhost:8010"
+domain: "localhost:5001"
 shared_secret: secret
 jwt_secret: random_string
 server:
   mode: debug
   host: 0.0.0.0
-  port: 8010
+  port: 80
 log:
   level: debug
   encoding: json
@@ -21,7 +21,7 @@ log:
 pagination:
   links_per_page: 20
 postgres:
-  host: localhost
+  host: postgres
   port: 5432
   database: shawty_storage
   username: postgres
