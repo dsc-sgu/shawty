@@ -1,5 +1,7 @@
 ssl: false
 domain: "localhost:8010"
+shared_secret: secret
+jwt_secret: random_string
 server:
   mode: debug
   host: 0.0.0.0

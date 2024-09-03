@@ -8,9 +8,13 @@ package templs
 import (
 	"github.com/a-h/templ"
 	templruntime "github.com/a-h/templ/runtime"
+
+	authdto "github.com/dsc-sgu/shawty/internal/server/dto/auth"
+
+	authtempls "github.com/dsc-sgu/shawty/internal/server/html/templs/auth"
 )
 
-func IndexPage() templ.Component {
+func IndexPage(authorized bool) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -40,13 +44,20 @@ func IndexPage() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<header><div class=\"title-container\"><h1>Shawty</h1><h3>The Link Shortener</h3></div></header>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<header><div class=\"title-container\"><h1 class=\"smaller\">Shawty</h1><span class=\"subtitle\">The Link Shortener</span></div></header>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = Home().Render(ctx, templ_7745c5c3_Buffer)
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
+			if authorized {
+				templ_7745c5c3_Err = Home().Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			} else {
+				templ_7745c5c3_Err = authtempls.AuthForm(authdto.AuthForm{}).Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
 			}
 			return templ_7745c5c3_Err
 		})

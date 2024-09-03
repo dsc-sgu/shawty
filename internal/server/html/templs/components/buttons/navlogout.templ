@@ -1,0 +1,11 @@
+package buttons
+
+templ NavLogout(text string) {
+    <button hx-get="/logout" hx-target="main" hx-swap="outerHTML">
+        if len(text) == 0 {
+            Logout
+        } else {
+            { text }
+        }
+    </button>
+}

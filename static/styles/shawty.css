@@ -1,5 +1,4 @@
 @import url("./base.css");
-@import url("./animation.css");
 
 body {
     font-family: var(--text-font-family);
@@ -25,7 +24,7 @@ h1, h2, h3, h4, h5 {
 h1 {
     font-size: var(--font-size-1000);
     padding-bottom: 0.25em;
-    text-shadow: 7px 7px var(--color-text-shadow-500);
+    text-shadow: 0.1em 0.1em var(--color-shadow-500);
 }
 h2 {
     font-size: var(--font-size-900);
@@ -40,14 +39,22 @@ h5 {
     font-size: var(--font-size-600);
 }
 
+h1.smaller {
+    font-size: var(--font-size-800);
+}
+
+span.subtitle {
+    font-weight: bold;
+    color: var(--color-text-400);
+}
+
 header {
     display: flex;
     width: 100%;
 
     align-items: center;
-    justify-content: center;
 
-    padding: 5em 0 2em 0;
+    padding: 1em;
 }
 
 .title-container {
@@ -70,18 +77,19 @@ button {
     font-family: var(--text-font-family);
     font-weight: bold;
 
-    border: 2pt solid var(--color-text-500);
+    border: none;
     border-radius: 15px;
 
     padding: 0.5em 1em;
 
     background: none;
-    background-image: linear-gradient(-35deg, #e0e0e010 0%, #e0e0e030 100%);
-    background-size: 400% 400%;
+    box-shadow: 0.2em 0.2em 0.3em 0.2em var(--color-shadow-400);
 
-    -webkit-animation: background-cruise 3s ease infinite;
-    -moz-animation: background-cruise 3s ease infinite;
-    animation: background-cruise 3s ease infinite;
+    animation: background-color 1s ease;
+}
+
+button:hover {
+    background-color: var(--color-brand-1-300);
 }
 
 .navigation button {
@@ -89,7 +97,7 @@ button {
 }
 
 table, tr, td, th {
-    border: 1.5pt solid var(--color-text-300);
+    border: 1.5pt solid var(--color-text-200);
     border-spacing: 0;
 }
 
@@ -170,14 +178,14 @@ td, th {
     padding: 0.25em 0;
 }
 
-.link-create input {
+input {
     height: 1.25lh;
     width: 100%;
     padding: 0 0.5em;
 
     font-size: var(--font-size-500);
 
-    border: none;
+    border: 2pt solid var(--color-text-500);
     border-radius: 10px;
 }
 

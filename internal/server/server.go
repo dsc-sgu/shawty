@@ -32,10 +32,20 @@ func Launch() {
 	// gin server engine
 	e := gin.New()
 
-	e.Use(middleware.AccessLogMiddleware())
+	e.Use(
+		middleware.AccessLogMiddleware(),
+		middleware.AuthMiddleware([]string{
+			`^/home$`,
+			`^/home/.*$`,
+			`^/links$`,
+			`^/links/.*$`,
+		}),
+	)
 
 	e.Static("/static", "./static")
 	e.GET("/", routes.GetIndex)
+	e.POST("/auth", routes.PostAuth)
+	e.GET("/logout", routes.GetLogout)
 	e.GET("/home", routes.GetHome)
 	e.GET("/ping", routes.GetPing)
 	e.GET("/links", linkroutes.GetLinks)

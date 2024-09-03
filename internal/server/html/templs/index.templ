@@ -1,13 +1,22 @@
 package templs
 
-templ IndexPage() {
+import (
+    authtempls "github.com/dsc-sgu/shawty/internal/server/html/templs/auth"
+    authdto "github.com/dsc-sgu/shawty/internal/server/dto/auth"
+)
+
+templ IndexPage(authorized bool) {
     @PageBase() {
         <header>
             <div class="title-container">
-                <h1>Shawty</h1>
-                <h3>The Link Shortener</h3>
+                <h1 class="smaller">Shawty</h1>
+                <span class="subtitle">The Link Shortener</span>
             </div>
         </header>
-        @Home()
+        if authorized {
+            @Home()
+        } else {
+            @authtempls.AuthForm(authdto.AuthForm{})
+        }
     }
 }

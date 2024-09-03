@@ -9,6 +9,7 @@ type appConfig struct {
 	Ssl          bool             `yaml:"ssl"`
 	Domain       string           `yaml:"domain"`
 	SharedSecret string           `yaml:"shared_secret"`
+	JwtSecret    string           `yaml:"jwt_secret"`
 	Server       serverConfig     `yaml:"server"`
 	Pg           pgConfig         `yaml:"postgres"`
 	Log          logConfig        `yaml:"log"`

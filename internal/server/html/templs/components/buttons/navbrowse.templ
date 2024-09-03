@@ -1,13 +1,11 @@
 package buttons
 
 templ NavBrowse(text string) {
-    if len(text) == 0 {
-        <button hx-get="/links" hx-target="main" hx-swap="outerHTML">
+    <button hx-get="/links" hx-target="main" hx-swap="outerHTML">
+        if len(text) == 0 {
             View Links
-        </button>
-    } else {
-        <button hx-get="/links" hx-target="main" hx-swap="outerHTML">
+        } else {
             { text }
-        </button>
-    }
+        }
+    </button>
 }

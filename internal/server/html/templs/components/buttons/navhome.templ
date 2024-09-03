@@ -1,13 +1,11 @@
 package buttons
 
 templ NavHome(text string) {
-    if len(text) == 0 {
-        <button hx-get="/home" hx-target="main" hx-swap="outerHTML">
+    <button hx-get="/home" hx-target="main" hx-swap="outerHTML">
+        if len(text) == 0 {
             Home
-        </button>
-    } else {
-        <button hx-get="/home" hx-target="main" hx-swap="outerHTML">
+        } else {
             { text }
-        </button>
-    }
+        }
+    </button>
 }

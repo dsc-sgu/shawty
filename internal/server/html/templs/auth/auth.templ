@@ -1,0 +1,29 @@
+package authtempls
+
+import (
+    authdto "github.com/dsc-sgu/shawty/internal/server/dto/auth"
+)
+
+templ AuthForm(form authdto.AuthForm) {
+    <main>
+        <form class="auth"
+              hx-post="/auth"
+              hx-target="main"
+              hx-swap="outerHTML">
+              <div class="container">
+                  <label for="secret">Secret</label>
+                  <input type="password"
+                         id="secret"
+                         name="secret"
+                         required
+                         value={ form.Data.Secret }>
+                  if len(form.Errors.Secret) != 0 {
+                      <span class="error">{ form.Errors.Secret }</span> 
+                  }
+              </div>
+              <div class="navigation">
+                  <button type="submit">Login</button>
+              </div>
+        </form>
+    </main>
+}
