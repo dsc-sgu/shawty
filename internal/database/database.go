@@ -6,6 +6,7 @@ import (
 
 	"github.com/dsc-sgu/shawty/internal/config"
 	"github.com/dsc-sgu/shawty/internal/log"
+	"github.com/dsc-sgu/shawty/internal/models"
 	"github.com/google/uuid"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
@@ -78,24 +79,43 @@ func (c *connection) IsNameTaken(
 // Finds link by its name. The second return value is the indicator,
 // whether or not a link with this name exists in the database.
 func (c *connection) FindLinkByName(ctx context.Context, name string) (
-	LinkWithVisits,
+	models.LinkWithVisits,
 	bool,
 	error,
 ) {
-	var links []LinkWithVisits
+	var links []models.LinkWithVisits
 	if err := c.db.SelectContext(ctx, &links, findByName, name); err != nil {
 		log.S.Errorw("Database query has failed", "error", err)
-		return LinkWithVisits{}, false, err
+		return models.LinkWithVisits{}, false, err
 	}
 	if len(links) != 0 {
 		return links[0], true, nil
 	} else {
-		return LinkWithVisits{}, false, nil
+		return models.LinkWithVisits{}, false, nil
+	}
+}
+
+// Finds link by its ID. The second return value is the indicator,
+// whether or not a link with this ID exists in the database.
+func (c *connection) FindLinkById(ctx context.Context, id uuid.UUID) (
+	models.LinkWithVisits,
+	bool,
+	error,
+) {
+	var links []models.LinkWithVisits
+	if err := c.db.SelectContext(ctx, &links, findById, id); err != nil {
+		log.S.Errorw("Database query has failed", "error", err)
+		return models.LinkWithVisits{}, false, err
+	}
+	if len(links) != 0 {
+		return links[0], true, nil
+	} else {
+		return models.LinkWithVisits{}, false, nil
 	}
 }
 
 // Inserts link in the database.
-func (c *connection) SaveLink(ctx context.Context, l Link) error {
+func (c *connection) SaveLink(ctx context.Context, l models.Link) error {
 	tx, err := c.db.BeginTxx(ctx, nil)
 	if err != nil {
 		return err
@@ -142,20 +162,24 @@ func (c *connection) DeleteLink(ctx context.Context, id uuid.UUID) error {
 
 // Queries records from the view, that joins `links` and `visits`
 // tables, to count each link's visits.
-func (c *connection) GetLinksVisits(ctx context.Context, page int, size int) (
-	[]LinkWithVisits,
+func (c *connection) GetLinksWithVisits(
+	ctx context.Context,
+	page int,
+	size int,
+) (
+	[]models.LinkWithVisits,
 	error,
 ) {
-	var links []LinkWithVisits
+	var links []models.LinkWithVisits
 	if err := c.db.SelectContext(ctx, &links, linksVisits, size, page*size); err != nil {
 		log.S.Errorw("Database query has failed", "error", err)
-		return []LinkWithVisits{}, err
+		return []models.LinkWithVisits{}, err
 	}
 	return links, nil
 }
 
 // Inserts visit in the database.
-func (c *connection) SaveVisit(ctx context.Context, v Visit) error {
+func (c *connection) SaveVisit(ctx context.Context, v models.Visit) error {
 	tx, err := c.db.BeginTxx(ctx, nil)
 	if err != nil {
 		return err

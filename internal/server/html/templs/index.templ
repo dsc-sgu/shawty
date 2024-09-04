@@ -2,7 +2,7 @@ package templs
 
 import (
     authtempls "github.com/dsc-sgu/shawty/internal/server/html/templs/auth"
-    authdto "github.com/dsc-sgu/shawty/internal/server/dto/auth"
+    webdto "github.com/dsc-sgu/shawty/internal/server/dto/webui"
 )
 
 templ IndexPage(authorized bool) {
@@ -16,7 +16,7 @@ templ IndexPage(authorized bool) {
         if authorized {
             @Home()
         } else {
-            @authtempls.AuthForm(authdto.AuthForm{})
+            @authtempls.AuthForm(webdto.Auth{})
         }
     }
 }

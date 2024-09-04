@@ -1,10 +1,10 @@
 package authtempls
 
 import (
-    authdto "github.com/dsc-sgu/shawty/internal/server/dto/auth"
+    webdto "github.com/dsc-sgu/shawty/internal/server/dto/webui"
 )
 
-templ AuthForm(form authdto.AuthForm) {
+templ AuthForm(form webdto.Auth) {
     <main>
         <form class="auth"
               hx-post="/auth"

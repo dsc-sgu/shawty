@@ -1,4 +1,4 @@
-package routes
+package webroutes
 
 import (
 	"net/http"

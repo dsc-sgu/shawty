@@ -4,8 +4,9 @@ import (
 	"net/http"
 
 	"github.com/dsc-sgu/shawty/internal/database"
+	"github.com/dsc-sgu/shawty/internal/models"
 	"github.com/dsc-sgu/shawty/internal/server/dto"
-	"github.com/dsc-sgu/shawty/internal/server/routes/common"
+	"github.com/dsc-sgu/shawty/internal/server/routes/webui/common"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )
@@ -39,7 +40,7 @@ func Redirect(c *gin.Context) {
 		return
 	}
 
-	visit := database.Visit{
+	visit := models.Visit{
 		Id:     id,
 		LinkId: sl.Id,
 		Tag:    query.Tag,

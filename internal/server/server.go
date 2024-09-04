@@ -13,7 +13,8 @@ import (
 	"github.com/dsc-sgu/shawty/internal/log"
 	"github.com/dsc-sgu/shawty/internal/server/middleware"
 	"github.com/dsc-sgu/shawty/internal/server/routes"
-	linkroutes "github.com/dsc-sgu/shawty/internal/server/routes/link"
+	apiroutes "github.com/dsc-sgu/shawty/internal/server/routes/api"
+	webroutes "github.com/dsc-sgu/shawty/internal/server/routes/webui"
 	"github.com/gin-gonic/gin"
 )
 
@@ -43,16 +44,25 @@ func Launch() {
 	)
 
 	e.Static("/static", "./static")
-	e.GET("/", routes.GetIndex)
-	e.POST("/auth", routes.PostAuth)
-	e.GET("/logout", routes.GetLogout)
-	e.GET("/home", routes.GetHome)
 	e.GET("/ping", routes.GetPing)
-	e.GET("/links", linkroutes.GetLinks)
-	e.POST("/links", linkroutes.PostLink)
-	e.DELETE("/links", linkroutes.DeleteLink)
-	e.GET("/links/new", linkroutes.NewLink)
 	e.GET("/s/:name", routes.Redirect)
+	e.GET("/", webroutes.GetIndex)
+	e.POST("/auth", webroutes.PostAuth)
+	e.GET("/logout", webroutes.GetLogout)
+	e.GET("/home", webroutes.GetHome)
+	e.GET("/links", webroutes.GetLinks)
+	e.POST("/links", webroutes.PostLink)
+	e.GET("/links/new", webroutes.NewLink)
+	e.DELETE("/links/:id", webroutes.DeleteLink)
+
+	g := e.Group("/api")
+	{
+		g.GET("/version", apiroutes.GetVersion)
+		g.POST("/auth", apiroutes.PostAuth)
+		g.GET("/links", apiroutes.GetLinks)
+		g.POST("/links", apiroutes.PostLink)
+		g.DELETE("/links", apiroutes.DeleteLink)
+	}
 
 	// disable trusted proxy warning
 	if err := e.SetTrustedProxies(nil); err != nil {

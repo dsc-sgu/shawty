@@ -10,15 +10,15 @@ import (
 
 	"github.com/a-h/templ"
 	templruntime "github.com/a-h/templ/runtime"
-	"github.com/dsc-sgu/shawty/internal/database"
+	"github.com/dsc-sgu/shawty/internal/models"
 
 	"strconv"
 	"time"
 
-	linkdto "github.com/dsc-sgu/shawty/internal/server/dto/link"
+	webdto "github.com/dsc-sgu/shawty/internal/server/dto/webui"
 )
 
-func LinkRows(params linkdto.ViewParams) templ.Component {
+func LinkRows(params webdto.LinkFetchParams) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -64,7 +64,7 @@ func linkRowsQuery(page int) string {
 	return fmt.Sprintf("/links?page=%d", page)
 }
 
-func LinkRow(lv database.LinkWithVisits, nextPage int, disabled bool) templ.Component {
+func LinkRow(lv models.LinkWithVisits, nextPage int, disabled bool) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -97,14 +97,14 @@ func LinkRow(lv database.LinkWithVisits, nextPage int, disabled bool) templ.Comp
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" data-name=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" data-id=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var3 string
-		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(lv.Name)
+		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(lv.Id.String())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/server/html/templs/link/links.templ`, Line: 38, Col: 27}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/server/html/templs/link/links.templ`, Line: 38, Col: 32}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
@@ -208,9 +208,9 @@ func LinkRow(lv database.LinkWithVisits, nextPage int, disabled bool) templ.Comp
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var10 string
-			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(string(templ.URL(fmt.Sprintf("/links?name=%s", lv.Name))))
+			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(string(templ.URL(fmt.Sprintf("/links/%v", lv.Id))))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/server/html/templs/link/links.templ`, Line: 83, Col: 90}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/server/html/templs/link/links.templ`, Line: 83, Col: 83}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 			if templ_7745c5c3_Err != nil {
@@ -221,9 +221,9 @@ func LinkRow(lv database.LinkWithVisits, nextPage int, disabled bool) templ.Comp
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var11 string
-			templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf(`.link[data-name=%q]`, lv.Name))
+			templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf(`.link[data-id="%v"]`, lv.Id))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/server/html/templs/link/links.templ`, Line: 84, Col: 76}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/server/html/templs/link/links.templ`, Line: 84, Col: 74}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 			if templ_7745c5c3_Err != nil {

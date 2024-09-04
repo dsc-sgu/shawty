@@ -9,7 +9,7 @@ import (
 	"github.com/a-h/templ"
 	templruntime "github.com/a-h/templ/runtime"
 
-	authdto "github.com/dsc-sgu/shawty/internal/server/dto/auth"
+	webdto "github.com/dsc-sgu/shawty/internal/server/dto/webui"
 
 	authtempls "github.com/dsc-sgu/shawty/internal/server/html/templs/auth"
 )
@@ -54,7 +54,7 @@ func IndexPage(authorized bool) templ.Component {
 					return templ_7745c5c3_Err
 				}
 			} else {
-				templ_7745c5c3_Err = authtempls.AuthForm(authdto.AuthForm{}).Render(ctx, templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = authtempls.AuthForm(webdto.Auth{}).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

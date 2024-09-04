@@ -9,6 +9,11 @@ SELECT * FROM link_visits
 WHERE name = $1
 LIMIT 1`
 
+const findById = `
+SELECT * FROM link_visits
+WHERE id = $1
+LIMIT 1`
+
 const insertLink = `
 INSERT INTO links (id, name, target, created_from)
 VALUES (:id, :name, :target, :created_from)`

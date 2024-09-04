@@ -1,11 +1,11 @@
 package linktempls
 
 import (
-    linkdto "github.com/dsc-sgu/shawty/internal/server/dto/link"
+    webdto "github.com/dsc-sgu/shawty/internal/server/dto/webui"
     "github.com/dsc-sgu/shawty/internal/server/html/templs/components/buttons"
 )
 
-templ Browse(params linkdto.ViewParams) {
+templ Browse(params webdto.LinkFetchParams) {
     <main>
         <div class="navigation">
             @buttons.NavHome("")

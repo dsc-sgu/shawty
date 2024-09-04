@@ -4,11 +4,11 @@ import (
     "fmt"
     "strconv"
     "time"
-    "github.com/dsc-sgu/shawty/internal/database"
-    linkdto "github.com/dsc-sgu/shawty/internal/server/dto/link"
+    "github.com/dsc-sgu/shawty/internal/models"
+    webdto "github.com/dsc-sgu/shawty/internal/server/dto/webui"
 )
 
-templ LinkRows(params linkdto.ViewParams) {
+templ LinkRows(params webdto.LinkFetchParams) {
     if len(params.Data) > 0 {
         for _, lv := range params.Data[:len(params.Data)-1] {
             @LinkRow(lv, -1, false)
@@ -29,13 +29,13 @@ func linkRowsQuery(page int) string {
     return fmt.Sprintf("/links?page=%d", page)
 }
 
-templ LinkRow(lv database.LinkWithVisits, nextPage int, disabled bool) {
+templ LinkRow(lv models.LinkWithVisits, nextPage int, disabled bool) {
     <tr if disabled {
             class="link disabled"
         } else {
             class="link"
         }
-        data-name={ lv.Name }
+        data-id={ lv.Id.String() }
         if nextPage > 0 {
             hx-get={ linkRowsQuery(nextPage) }
             hx-trigger="revealed"
@@ -80,8 +80,8 @@ templ LinkRow(lv database.LinkWithVisits, nextPage int, disabled bool) {
         <td class="delete">
             if !disabled {
                 <div class="container"
-                     hx-delete={ string(templ.URL(fmt.Sprintf("/links?name=%s", lv.Name))) }
-                     hx-target={ fmt.Sprintf(`.link[data-name=%q]`, lv.Name) }
+                     hx-delete={ string(templ.URL(fmt.Sprintf("/links/%v", lv.Id))) }
+                     hx-target={ fmt.Sprintf(`.link[data-id="%v"]`, lv.Id) }
                      hx-swap="outerHTML">
                     <div class="content">
                         <img src="/static/img/trash.svg">

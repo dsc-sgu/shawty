@@ -1,10 +1,10 @@
-package routes
+package webroutes
 
 import (
 	"net/http"
 
 	"github.com/dsc-sgu/shawty/internal/config"
-	authdto "github.com/dsc-sgu/shawty/internal/server/dto/auth"
+	webdto "github.com/dsc-sgu/shawty/internal/server/dto/webui"
 	"github.com/dsc-sgu/shawty/internal/server/html/render"
 	authtempls "github.com/dsc-sgu/shawty/internal/server/html/templs/auth"
 	"github.com/gin-gonic/gin"
@@ -12,6 +12,6 @@ import (
 
 func GetLogout(c *gin.Context) {
 	c.SetCookie("session", "", 0, "", "", config.C.Ssl, true)
-	r := render.New(c, authtempls.AuthForm(authdto.AuthForm{}))
+	r := render.New(c, authtempls.AuthForm(webdto.Auth{}))
 	c.Render(http.StatusOK, r)
 }
