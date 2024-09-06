@@ -1,8 +1,10 @@
 package middleware
 
 import (
+	"fmt"
 	"net/http"
 	"regexp"
+	"strings"
 
 	"github.com/dsc-sgu/shawty/internal/config"
 	"github.com/dsc-sgu/shawty/internal/log"
@@ -33,8 +35,12 @@ func AuthMiddleware(protected []string) gin.HandlerFunc {
 		if shouldProtect {
 			session, err := c.Cookie("session")
 			if err != nil {
-				authFailed(c, err)
-				return
+				header := c.GetHeader("Authorization")
+				session, err = processAuthHeader(header)
+				if err != nil {
+					authFailed(c, err)
+					return
+				}
 			}
 
 			if err = auth.CheckSession(session); err != nil {
@@ -51,4 +57,12 @@ func authFailed(c *gin.Context, err error) {
 	log.S.Debugw("Failed authentication attempt", "error", err)
 	c.Status(http.StatusForbidden)
 	c.Abort()
+}
+
+func processAuthHeader(header string) (string, error) {
+	if !strings.HasPrefix(header, "Bearer ") {
+		return "", fmt.Errorf("authorization header has invalid format")
+	}
+
+	return strings.TrimPrefix(header, "Bearer "), nil
 }

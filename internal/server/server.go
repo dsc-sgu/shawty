@@ -40,6 +40,8 @@ func Launch() {
 			`^/home/.*$`,
 			`^/links$`,
 			`^/links/.*$`,
+			`^/api/links$`,
+			`^/api/links/.*$`,
 		}),
 	)
 
